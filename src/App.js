@@ -1,19 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
 
-import { LoginButton } from 'react-login-broker-library';
+import { SessionButton } from 'react-login-broker-library';
 
 function App() {
-  const handleLogin = (cookie, url) => {
-    // window.location.replace(url);
-    document.cookie = cookie;
-    window.location.href = url;
-  }
+  const handleSessionReceived = (sessionId) => {
+		console.log('Received sessionId', sessionId);
+		// perform further action
+    // window.location.href="https://login.broker/"
+	}
 
+  const handleErrorReceived = (error) => {
+    console.log('Error happened', error);
+  }
+  
   return (
     <div className="App">
-      <LoginButton platform={'google'} handleLogin={handleLogin} />
-      <LoginButton platform={'github'} handleLogin={handleLogin} />
+      <div>
+        <SessionButton platform={'google'} onSessionReceived={handleSessionReceived} onErrorReceived={handleErrorReceived} />
+        <SessionButton platform={'github'} onSessionReceived={handleSessionReceived} onErrorReceived={handleErrorReceived} />
+      </div>
     </div>
   );
 }
